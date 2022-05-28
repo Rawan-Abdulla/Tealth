@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1040904831216",
+    "project_id": "tealth-android",
+    "storage_bucket": "tealth-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040904831216:android:956851ed1cf6530357c235",
+        "android_client_info": {
+          "package_name": "com.example.tealth_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040904831216-6cccai9f1e4g7f5id8nq0kuenkc9ckg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXawwGJ2-GVLXm35Brcjbcko9oosxDpx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040904831216-6cccai9f1e4g7f5id8nq0kuenkc9ckg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

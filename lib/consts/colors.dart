@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+
+class ColorsConsts {
+  static Color black = Color(0xFF000000);
+  static Color white = Color(0xFFFFFFFF);
+  static Color title = Color(0xDD000000);
+  static Color subTitle = Color(0x8A000000);
+  static Color backgroundColor = Color(0xFFE0E0E0); //grey shade 300
+
+  static Color favColor = Color(0xFFF44336); // red 500
+  static Color favBadgeColor = Color(0xFFE57373); // red 300
+
+  static Color cartColor = Color(0xFF5E35B1); //deep purple 600
+  static Color cartBadgeColor = Color(0xFFBA68C8); //purple 300
+
+  static Color gradiendFStart = Color(0xff0095FF); //purpleaccent 100
+  static Color gradiendFEnd = Color.fromARGB(255, 173, 217, 248); //purple 100
+  static Color endColor = Color(0xff0095FF); //purple 200
+  // static Color purple300 = Color(0xFFBA68C8); //purple 300
+  static Color gradiendLEnd = Color(0xff0095FF); //Pink
+  static Color gradiendLStart = Color(0xff0095FF); //purple 500
+  static Color starterColor = Color.fromARGB(255, 36, 161, 250); //purple 600
+  static Color purple800 = Color.fromARGB(255, 107, 191, 252);
+}
