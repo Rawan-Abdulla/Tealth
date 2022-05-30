@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tealth_project/lab/bar.dart';
+import 'package:tealth_project/model/user_model.dart';
 
 class AddingExamination extends StatefulWidget {
   final String patient;
@@ -14,6 +15,22 @@ class AddingExamination extends StatefulWidget {
 
 class _AddingExaminationState extends State<AddingExamination> {
   late DocumentSnapshot document;
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+
+      setState(() {});
+    });
+  }
 
   final secondaryColor = const Color(0xff0095FF);
   // ignore: unnecessary_new
@@ -173,6 +190,7 @@ class _AddingExaminationState extends State<AddingExamination> {
                                       .set({
                                     'name': testEditingController.text,
                                     'value': valueEditingController.text,
+                                    'LabName': "${loggedInUser.firstName} ",
                                     // 'lab': user?.uid.n,
                                     'created AT': DateTime.now()
                                   });
