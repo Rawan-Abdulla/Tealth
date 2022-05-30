@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tealth_project/main.dart';
+import 'package:tealth_project/pateint/AIAdivce.dart';
 import 'package:tealth_project/pateint/home_icon_buttoms.dart';
-import 'package:tealth_project/pateint/pateintProfile.dart';
 import '../model/user_model.dart';
-import '../widgets/bottombar.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreenPateint extends StatefulWidget {
@@ -58,102 +56,154 @@ class _HomeScreenPateintState extends State<HomeScreenPateint> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Transform.rotate(
-                origin: Offset(30, -60),
-                angle: 2.4,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    left: 75,
-                    top: 40,
-                  ),
-                  height: 350,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      colors: [Color(0xff0095FF), Color(0xff0095FF)],
+      body: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Transform.rotate(
+                  origin: Offset(30, -60),
+                  angle: 2.4,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      left: 75,
+                      top: 10,
+                    ),
+                    height: 350,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80),
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomLeft,
+                        colors: [Color(0xff0095FF), Color(0xff0095FF)],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _message,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
+                Container(
+                    padding: EdgeInsets.only(top: 40, left: 300),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Image.asset("assets/AiAdv.png"),
+                          onPressed: () {
+                            showAlert(context);
+                          },
+                          iconSize: 90.0,
+                          autofocus: true,
+                        ),
+                      ],
+                    )),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 80),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _message,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "${loggedInUser.firstName} ",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 90),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CatigoryW(
-                                image: 'assets/File_dock_fill.png',
-                                text: 'Examinations',
-                                color: Color(0xFF47B4FF),
-                              ),
-                              CatigoryW(
-                                image: 'assets/OQ6UTW0.png',
-                                text: 'Find Doctor',
-                                color: Color(0xFF47B4FF),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CatigoryW(
-                                image: 'assets/erlenmeyer 1.png',
-                                text: 'Find Lab',
-                                color: Color(0xFF47B4FF),
-                              ),
-                              CatigoryW(
-                                image: 'assets/Date_range.png',
-                                text: 'Appointments',
-                                color: Color(0xFF47B4FF),
-                              )
-                            ],
-                          ),
-                        ],
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ],
+                      Text(
+                        "${loggedInUser.firstName} ",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CatigoryW(
+                                  image: 'assets/File_dock_fill.png',
+                                  text: 'Examinations',
+                                  color: Color(0xFF47B4FF),
+                                ),
+                                CatigoryW(
+                                  image: 'assets/OQ6UTW0.png',
+                                  text: 'Find Doctor',
+                                  color: Color(0xFF47B4FF),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CatigoryW(
+                                  image: 'assets/erlenmeyer 1.png',
+                                  text: 'Find Lab',
+                                  color: Color(0xFF47B4FF),
+                                ),
+                                CatigoryW(
+                                  image: 'assets/Date_range.png',
+                                  text: 'Appointments',
+                                  color: Color(0xFF47B4FF),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+  showAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(children: [
+            Image.network(
+              'https://flutter-examples.com/wp-content/uploads/2019/12/android_icon.png',
+              width: 50,
+              height: 50,
+              fit: BoxFit.contain,
+            ),
+            Text(' Heart Disease Detection ')
+          ]),
+          content: Text(
+              "Do you want to predict whether you have heart disease or not?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("YES"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AiForm(title: "Ai Prediction Form")),
+                );
+              },
+            ),
+            FlatButton(
+              child: Text("CANCEL"),
+              onPressed: () {
+                //Put your code here which you want to execute on Cancel button click.
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

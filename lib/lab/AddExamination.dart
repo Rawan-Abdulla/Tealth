@@ -1,10 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tealth_project/Lab/LabHome.dart';
-import 'package:tealth_project/widgets/bar.dart';
+import 'package:tealth_project/lab/bar.dart';
 
 class AddingExamination extends StatefulWidget {
   final String patient;
@@ -61,15 +59,11 @@ class _AddingExaminationState extends State<AddingExamination> {
                 itemBuilder: (context, index) {
                   document = snapshot.data!.docs[index];
                   return Container(
-
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 85),
                       child: Column(
-
                         mainAxisAlignment: MainAxisAlignment.center,
-
                         children: <Widget>[
-
                           const Text(
                             "Select The Test ",
                             style: TextStyle(fontSize: 25, height: 2.5),
@@ -132,6 +126,7 @@ class _AddingExaminationState extends State<AddingExamination> {
                           const Text(
                             "Value of  the test ",
                             style: TextStyle(fontSize: 25, height: 2.5),
+                            // like login'
                           ),
                           const SizedBox(height: 15),
                           Container(
@@ -142,12 +137,18 @@ class _AddingExaminationState extends State<AddingExamination> {
                                 onSaved: (value) {
                                   valueEditingController.text = value!;
                                 },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Please Enter Value of the Test");
+                                  }
+                                  // reg expression for email validation
+
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                   contentPadding:
-                                  const EdgeInsets.fromLTRB(20, 25, 20, 15),
-                                  border: OutlineInputBorder(
-
-                                  ),
+                                      const EdgeInsets.fromLTRB(20, 25, 20, 15),
+                                  border: OutlineInputBorder(),
                                 )),
                           ),
                           const SizedBox(height: 30),
@@ -157,11 +158,12 @@ class _AddingExaminationState extends State<AddingExamination> {
                             color: const Color(0xff0095FF),
                             child: MaterialButton(
                                 padding:
-                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                    const EdgeInsets.fromLTRB(20, 15, 20, 15),
                                 minWidth: MediaQuery.of(context).size.width / 2,
                                 onPressed: () {
                                   //    print(document['uid']);
-                                  User? user = FirebaseAuth.instance.currentUser;
+                                  User? user =
+                                      FirebaseAuth.instance.currentUser;
 
                                   FirebaseFirestore.instance
                                       .collection("users")

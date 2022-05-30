@@ -1,20 +1,19 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tealth_project/consts/colors.dart';
-import 'package:tealth_project/consts/constants.dart';
+
 import 'package:tealth_project/doctor/barDr.dart';
 import 'package:tealth_project/pateint/PatinetBar.dart';
-import 'package:tealth_project/pateint/homepage.dart';
+
 import 'package:tealth_project/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:tealth_project/widgets/bar.dart';
+import 'package:tealth_project/lab/bar.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
-import 'Lab/LabHome.dart';
-import 'model/user_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,8 +24,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final dbRef = FirebaseFirestore.instance.collection('users');
 
@@ -35,9 +34,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TextFormField emailField;
-    // TextFormField passwordField;
-    // Material loginButton;
     final emailField = TextFormField(
       autofocus: false,
       controller: emailController,
@@ -70,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         controller: passwordController,
         obscureText: true,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
+          RegExp regex = RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
             return ("Password is required for login");
           }
@@ -167,12 +163,6 @@ class _LoginPageState extends State<LoginPage> {
                               shape: BoxShape.rectangle,
                             ),
                           ),
-                          // SizedBox(
-                          //     height: 200,
-                          //     child: Image.asset(
-                          //       "assets/logo.png",
-                          //       fit: BoxFit.contain,
-                          //     )),
                           SizedBox(height: 45),
                           emailField,
                           SizedBox(height: 25),
@@ -180,7 +170,6 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 35),
                           loginButton,
                           SizedBox(height: 15),
-
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -229,16 +218,15 @@ class _LoginPageState extends State<LoginPage> {
               .doc(userID)
               .get()
               .then((value) => setState(() {
-
                     if (value['role'] == 'Pateint') {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => PateintBar()));
                     } else if (value['role'] == 'Doctor') {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => barDr()));
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => barDr()));
                     } else if (value['role'] == 'Lab') {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>  bar()));
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => bar()));
                     }
                   }));
         }

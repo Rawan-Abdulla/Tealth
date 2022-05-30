@@ -9,11 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tealth_project/pateint/homepage.dart';
-import 'package:tealth_project/services/global_method.dart';
-
-import 'Lab/LabHome.dart';
-import 'doctor/homePage.dart';
+import 'package:tealth_project/pateint/PatinetBar.dart';
+import 'package:tealth_project/lab/bar.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -781,10 +778,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -831,22 +824,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap())
         .then((value) => setState(() {
               if (roleEditingController.text == 'Pateint') {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomeScreenPateint()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => PateintBar()));
               } else if (roleEditingController.text == 'Doctor') {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => barDr()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => barDr()));
               } else if (roleEditingController.text == 'Lab') {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomeScreenLab()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => bar()));
               }
             }));
     ;
     Fluttertoast.showToast(msg: "Account created successfully :) ");
-
-    // Navigator.pushAndRemoveUntil(
-    //     (context),
-    //     MaterialPageRoute(builder: (context) => HomeScreenPateint()),
-    //     (route) => false);
   }
 }

@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import "package:flutter/material.dart";
-import 'package:tealth_project/pateint/pateintProfile.dart';
-import 'package:tealth_project/widgets/progress.dart';
 
-import '../widgets/bottombar.dart';
+import "package:flutter/material.dart";
+import 'package:tealth_project/widgets/progress.dart';
 
 class EditProfile extends StatefulWidget {
   final String currentUserId;
@@ -208,19 +205,8 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   updateProfileData() async {
-    setState(() {
-      // NameController.text.trim().length < 3 || NameController.text.isEmpty
-      //     ? _NameValid = false
-      //     : _NameValid = true;
-      // locationController.text.trim().length > 100
-      //     ? _locationValid = false
-      //     : _locationValid = true;
-      // emailController.text.trim().length > 100
-      //     ? _emailValid = false
-      //     : _emailValid = true;
-    });
+    setState(() {});
 
-    // if (_NameValid && _phoneNumberValid) {
     await FirebaseFirestore.instance.collection('users').doc(user?.uid).update({
       "firstName": NameController.text,
       "location": locationController.text,
@@ -229,18 +215,7 @@ class _EditProfileState extends State<EditProfile> {
       "EndtWorkTime": EndWorkTimeController.text,
     });
     // if (NameController.text == null &&
-    //     locationController.text == null &&
-    //     emailController.text == null &&
-    //     startWorkTimeController.text == null) {
-    //   SnackBar snackbar = SnackBar(
-    //     content: Text(
-    //       "Enter data",
-    //       style: TextStyle(color: Colors.white),
-    //     ),
-    //     backgroundColor: Colors.blue,
-    //   );
-    //   _scaffoldKey.currentState!.showSnackBar(snackbar);
-    // } else {
+
     SnackBar snackbar = SnackBar(
       content: Text(
         "Profile updated!",
@@ -249,14 +224,7 @@ class _EditProfileState extends State<EditProfile> {
       backgroundColor: Colors.blue,
     );
     _scaffoldKey.currentState!.showSnackBar(snackbar);
-    // }
-    // }
   }
-
-  // logout() async {
-  //   await googleSignIn.signOut();
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-  // }
 
   @override
   Widget build(BuildContext context) {

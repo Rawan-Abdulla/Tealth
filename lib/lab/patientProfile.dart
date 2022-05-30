@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tealth_project/Lab/AddExamination.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,6 +26,17 @@ class _patientProfileState extends State<patientProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            // passing this to our root
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: SafeArea(
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -57,16 +68,6 @@ class _patientProfileState extends State<patientProfile> {
                           height: 50,
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(left: 5),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.chevron_left_sharp,
-                              color: Colors.indigo,
-                              size: 30,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
                         ),
                         CircleAvatar(
                           backgroundImage: NetworkImage(document['imageUrl']),

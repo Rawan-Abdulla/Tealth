@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tealth_project/main.dart';
 import 'package:tealth_project/pateint/home_icon_buttoms.dart';
-import 'package:tealth_project/pateint/pateintProfile.dart';
 import '../model/user_model.dart';
-import '../widgets/bottombar.dart';
 
 class HomeScreenDoctor extends StatefulWidget {
   const HomeScreenDoctor({Key? key}) : super(key: key);
@@ -36,56 +33,6 @@ class _HomeScreenDoctorState extends State<HomeScreenDoctor> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      bottomNavigationBar: BottomAppBar(
-        color: secondaryColor,
-        child: SizedBox(
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IconBottomBar(
-                    text: "Profile",
-                    icon: Icons.perm_identity_outlined,
-                    selected: false,
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => ProfileScreenPateint()),
-                      // );
-                    }),
-                IconBottomBar(
-                    text: "Home",
-                    icon: Icons.home,
-                    selected: true,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomeScreenDoctor()),
-                      );
-                    }),
-                IconBottomBar(
-                    text: "Notification",
-                    icon: Icons.doorbell_outlined,
-                    selected: false,
-                    onPressed: () {}),
-                IconBottomBar(
-                    text: "LogOut",
-                    icon: Icons.login_outlined,
-                    selected: false,
-                    onPressed: () {
-                      logout(context);
-                    })
-              ],
-            ),
-          ),
-        ),
-      ),
       body: Column(
         children: [
           Stack(
@@ -177,11 +124,5 @@ class _HomeScreenDoctorState extends State<HomeScreenDoctor> {
         ],
       ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 }

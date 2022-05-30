@@ -2,18 +2,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tealth_project/Lab/LabHome.dart';
+
 import 'package:tealth_project/lab/EditProfileLab.dart';
 import 'package:tealth_project/model/user_model.dart';
 
-import '../main.dart';
-import '../widgets/bottombar.dart';
+import '../widgets/profile_widget.dart';
 
 class LabPage extends StatefulWidget {
   const LabPage() : super();
   @override
   _LabPageState createState() => _LabPageState();
 }
+
+var url = "";
 
 class _LabPageState extends State<LabPage> {
   final secondaryColor = const Color(0xff0095FF);
@@ -30,6 +31,9 @@ class _LabPageState extends State<LabPage> {
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
+      url = value.get('imageUrl');
+      if (url == '' || url == Null || url == null)
+        url = 'https://cdn-icons-png.flaticon.com/512/194/194915.png';
       setState(() {});
     });
   }
@@ -67,10 +71,9 @@ class _LabPageState extends State<LabPage> {
         margin: EdgeInsets.only(top: 5),
         child: Column(
           children: <Widget>[
-            CircleAvatar(
-              backgroundImage: NetworkImage("${loggedInUser.imageUrl}"),
-              //backgroundColor: Colors.lightBlue[100],
-              radius: 80,
+            ProfileWidget(
+              imagePath: url,
+              onClicked: () async {},
             ),
             SizedBox(
               height: 20,
@@ -82,7 +85,6 @@ class _LabPageState extends State<LabPage> {
                 fontSize: 24,
               ),
             ),
-
             SizedBox(
               height: 20,
             ),
@@ -115,7 +117,6 @@ class _LabPageState extends State<LabPage> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 20,
             ),
@@ -225,39 +226,6 @@ class _LabPageState extends State<LabPage> {
             SizedBox(
               height: 50,
             ),
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 30),
-            //   height: 50,
-            //   width: MediaQuery.of(context).size.width,
-            //   child: ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //       elevation: 2,
-            //       primary: Colors.indigo.withOpacity(0.9),
-            //       onPrimary: Colors.black,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(32.0),
-            //       ),
-            //     ),
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => BookingScreen(
-            //             patient: document['name'],
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //     child: Text(
-            //       'Book an Appointment',
-            //       style: GoogleFonts.lato(
-            //         color: Colors.white,
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 40,
             ),
@@ -268,11 +236,5 @@ class _LabPageState extends State<LabPage> {
           // ),
           ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 }

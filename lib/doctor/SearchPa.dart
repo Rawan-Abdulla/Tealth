@@ -1,16 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
 import 'package:tealth_project/doctor/SeListPa.dart';
-
-import 'package:tealth_project/model/examination_catogry.dart';
-import 'package:tealth_project/model/user_model.dart';
-import 'package:tealth_project/pateint/SearchDoctor.dart';
-import 'package:tealth_project/pateint/home_icon_buttoms.dart';
-import 'package:intl/intl.dart';
 
 class searchpa extends StatefulWidget {
   const searchpa({Key? key}) : super(key: key);
@@ -27,10 +19,10 @@ class _searchpaState extends State<searchpa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -42,25 +34,6 @@ class _searchpaState extends State<searchpa> {
         children: [
           Stack(
             children: [
-              Transform.rotate(
-                origin: Offset(30, -60),
-                angle: 2.4,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    left: 75,
-                    top: 40,
-                  ),
-                  height: 350,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      colors: [Color(0xff0095FF), Color(0xff0095FF)],
-                    ),
-                  ),
-                ),
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 70),
                 child: Column(
@@ -81,9 +54,6 @@ class _searchpaState extends State<searchpa> {
                           children: <Widget>[
                             Column(
                               children: [
-                                SizedBox(
-                                  height: 30,
-                                ),
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   padding:
@@ -119,7 +89,7 @@ class _searchpaState extends State<searchpa> {
                                       ),
                                       suffixIcon: Container(
                                         decoration: BoxDecoration(
-                                          color: Color(0xff0095FF),
+                                          color: Colors.blue,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -128,17 +98,7 @@ class _searchpaState extends State<searchpa> {
                                           splashRadius: 20,
                                           color: Colors.white,
                                           icon: Icon(Icons.search),
-                                          onPressed: () {
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //     builder: (context) =>
-                                            //         SearchListPatient(
-                                            //       searchKey: ,
-                                            //     ),
-                                            //   ),
-                                            // );
-                                          },
+                                          onPressed: () {},
                                         ),
                                       ),
                                     ),

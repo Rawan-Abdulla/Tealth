@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tealth_project/doctor/getExamination.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'DrHomePage.dart';
@@ -15,6 +17,11 @@ class patientProfile extends StatefulWidget {
 }
 
 class _patientProfileState extends State<patientProfile> {
+  static final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+  static final CollectionReference requestsCollection =
+      FirebaseFirestore.instance.collection('requests');
+  User? current_user = FirebaseAuth.instance.currentUser;
   _launchCaller(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -207,12 +214,26 @@ class _patientProfileState extends State<patientProfile> {
                                 borderRadius: BorderRadius.circular(32.0),
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreenDr()),
-                              );
+                            onPressed: () async {
+                              // bool value = await firstFunc(uid);
+
+                              bool? isAcess = await getPatientExaminations(
+                                  doctorID: current_user!.uid,
+                                  patientID: document['uid']);
+                              // print(isAcess);
+
+                              // ignore: unrelated_type_equality_checks
+                              if (isAcess == true) {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            getExaminationList(
+                                              pateint: document['uid'],
+                                            )));
+                              }
+                              if (isAcess == false) {
+                                showAlertDialog(context);
+                              }
                             },
                             child: Text(
                               'View  Examinations',
@@ -237,5 +258,55 @@ class _patientProfileState extends State<patientProfile> {
         ),
       ),
     );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("My title"),
+      content: Text("This is my message."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  static Future<bool?> getPatientExaminations({
+    required String doctorID,
+    required String patientID,
+  }) async {
+    String requestID = '$doctorID-$patientID';
+    DocumentSnapshot documentSnapshot =
+        await requestsCollection.doc(requestID).get();
+
+    Map<String, dynamic> requestData;
+    try {
+      requestData = documentSnapshot.data() as Map<String, dynamic>;
+    } catch (e) {
+      return null;
+    }
+    bool value = requestData['accepted'];
+
+    // if (requestData['accepted'] == null || requestData['accepted'] == false) {
+    //   return false;
+    // }
+    // if (requestData['accepted'] == true) {
+    //   return true;
+    // }
+    return value;
   }
 }

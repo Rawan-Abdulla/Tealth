@@ -211,10 +211,4 @@ class _HomeScreenLabState extends State<HomeScreenLab> {
           ),
         ));
   }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-  }
 }

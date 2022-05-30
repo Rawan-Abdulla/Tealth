@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../main.dart';
+import 'package:tealth_project/pateint/PatinetBar.dart';
 import '../model/user_model.dart';
-import '../widgets/bottombar.dart';
 import '../widgets/profile_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'EditProfile.dart';
 import 'getExamination.dart';
-import 'homepage.dart';
 
 class ProfileScreenPateint extends StatefulWidget {
   const ProfileScreenPateint({Key? key}) : super(key: key);
@@ -67,6 +65,15 @@ class _ProfileScreenPateintState extends State<ProfileScreenPateint> {
               },
             )
           ],
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PateintBar()),
+              );
+            },
+          ),
         ),
         backgroundColor: Colors.transparent,
         body: ListView(
@@ -220,10 +227,4 @@ class _ProfileScreenPateintState extends State<ProfileScreenPateint> {
           ),
         ],
       );
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-  }
 }

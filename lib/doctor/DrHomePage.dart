@@ -59,57 +59,6 @@ class _HomeScreenDrState extends State<HomeScreenDr> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      // bottomNavigationBar: BottomAppBar(
-      //   color: secondaryColor,
-      //   child: SizedBox(
-      //     height: 50,
-      //     width: MediaQuery.of(context).size.width,
-      //     child: Padding(
-      //       padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-      //       child: Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           IconBottomBar(
-      //               text: "Profile",
-      //               icon: Icons.perm_identity_outlined,
-      //               selected: false,
-      //               onPressed: () {
-      //                 Navigator.push(
-      //                   context,
-      //                   MaterialPageRoute(
-      //                       builder: (context) => ProfileScreenPateint()),
-      //                 );
-      //               }),
-      //           IconBottomBar(
-      //               text: "Home",
-      //               icon: Icons.home,
-      //               selected: true,
-      //               onPressed: () {
-      //                 Navigator.push(
-      //                   context,
-      //                   MaterialPageRoute(
-      //                       builder: (context) => HomeScreenDr()),
-      //                 );
-      //               }),
-      //           IconBottomBar(
-      //               text: "Notification",
-      //               icon: Icons.doorbell_outlined,
-      //               selected: false,
-      //               onPressed: () {}),
-      //           IconBottomBar(
-      //               text: "LogOut",
-      //               icon: Icons.login_outlined,
-      //               selected: false,
-      //               onPressed: () {
-      //                 logout(context);
-      //               })
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
       body: Column(
         children: [
           Stack(
@@ -186,12 +135,41 @@ class _HomeScreenDrState extends State<HomeScreenDr> {
           ),
         ],
       ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
-  }
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 }

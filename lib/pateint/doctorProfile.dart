@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tealth_project/pateint/booking.dart';
@@ -15,6 +16,12 @@ class DoctorProfile extends StatefulWidget {
 }
 
 class _DoctorProfileState extends State<DoctorProfile> {
+  static final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+  static final CollectionReference requestsCollection =
+      FirebaseFirestore.instance.collection('requests');
+  User? current_user = FirebaseAuth.instance.currentUser;
+  bool isAccepted = false;
   _launchCaller(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -268,7 +275,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               elevation: 2,
-
                               onPrimary: Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(32.0),
@@ -297,6 +303,38 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         SizedBox(
                           height: 40,
                         ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                              primary: Colors.blue,
+                              onPrimary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32.0),
+                              ),
+                            ),
+                            onPressed: () {
+                              showAlertDialog(context,
+                                  doctorID: document['uid'],
+                                  patientID: current_user!.uid);
+                              sendRequestToPatient(
+                                  doctorID: document['uid'],
+                                  patientID: current_user!.uid,
+                                  isAccepted: isAccepted);
+                            },
+                            child: Text(
+                              'Allow acsess to your examinations',
+                              style: GoogleFonts.lato(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -306,6 +344,66 @@ class _DoctorProfileState extends State<DoctorProfile> {
           },
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context,
+      {required String doctorID, required String patientID}) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("yes"),
+      onPressed: () {
+        String requestID;
+        isAccepted = true;
+        requestID = '$doctorID-$patientID';
+        print(requestID);
+        respondToRequest(isAccepted: isAccepted, requestID: requestID);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("No"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Acess Examinations"),
+      content: Text("Would you want to allow acess to your examinations?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  static Future<void> sendRequestToPatient(
+      {required String doctorID,
+      required String patientID,
+      required bool isAccepted}) async {
+    await requestsCollection.doc('$doctorID-$patientID').set({
+      'patientID': patientID,
+      'doctorID': doctorID,
+      'time': DateTime.now(),
+      'accepted': isAccepted,
+    });
+  }
+
+  static Future<void> respondToRequest({
+    required String requestID,
+    required bool isAccepted,
+  }) async {
+    await requestsCollection.doc(requestID).update(
+      {
+        'accepted': isAccepted,
+      },
     );
   }
 }

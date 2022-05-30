@@ -1,21 +1,19 @@
 // ignore: file_names
 
+// ignore_for_file: use_key_in_widget_constructors, camel_case_types
+
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:tealth_project/Lab/LabHome.dart';
-import 'package:tealth_project/Lab/LabPage.dart';
+import 'package:tealth_project/HomePageScreen.dart';
+
 import 'package:tealth_project/doctor/DrHomePage.dart';
-import 'package:tealth_project/doctor/doctorProfile.dart';
-import 'package:tealth_project/main.dart';
-import 'package:tealth_project/pateint/homepage.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class barDr extends StatefulWidget {
   @override
@@ -24,11 +22,10 @@ class barDr extends StatefulWidget {
 
 class _barDrState extends State<barDr> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  // Future _signOut() async {
-  //   await _auth.signOut();
-  // }
+
   int _selectedIndex = 0;
-  List<Widget> _pages = [HomeScreenDr(),HomeScreenDr(),HomeScreenDr()
+  List<Widget> _pages = [
+    HomeScreenDr(), HomeScreenDr(), HomeScreenDr()
     // DoctorProfile(), DoctorProfile()
   ];
 
@@ -111,10 +108,6 @@ class _barDrState extends State<barDr> {
                         : Typicons.home_outline,
                     text: 'Home',
                   ),
-                  // GButton(
-                  //   icon: FlutterIcons.search1_ant,
-                  //   text: 'Search',
-                  // ),
                   GButton(
                     iconSize: 28,
                     icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
@@ -132,9 +125,11 @@ class _barDrState extends State<barDr> {
                     icon: Typicons.arrow_back,
                     text: 'Logout',
                     onPressed: () {
-                      //  Future _signOut() async {
-                      signOut();
-                      //  }
+                      //Future<void> logout(BuildContext context) async {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                      // }
                     },
                   ),
                 ],

@@ -217,7 +217,7 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text(
-          "Edit Profile",
+          "Edit Data",
           style: TextStyle(
             color: Colors.white,
           ),
@@ -242,7 +242,10 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
       body: isLoading
-          ? circularProgress()
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: circularProgress(),
+            )
           : ListView(
               children: <Widget>[
                 Container(
@@ -258,10 +261,10 @@ class _EditProfileState extends State<EditProfile> {
                         padding: EdgeInsets.all(16.0),
                         child: Column(
                           children: <Widget>[
-                            buildNameField(),
+                            //  buildNameField(),
                             buildphoneNumberField(),
                             buildEmailField(),
-                            buildAgeField(),
+                            //  buildAgeField(),
                           ],
                         ),
                       ),
@@ -280,7 +283,7 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                           padding: const EdgeInsets.all(10.0),
-                          child: const Text('Update Profile',
+                          child: const Text('Update Data',
                               style: TextStyle(fontSize: 20)),
                         ),
                       ),

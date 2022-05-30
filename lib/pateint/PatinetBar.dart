@@ -4,34 +4,28 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:tealth_project/Lab/LabHome.dart';
-import 'package:tealth_project/Lab/LabPage.dart';
-import 'package:tealth_project/doctor/DrHomePage.dart';
-import 'package:tealth_project/doctor/doctorProfile.dart';
-import 'package:tealth_project/main.dart';
+import 'package:tealth_project/HomePageScreen.dart';
 import 'package:tealth_project/pateint/homepage.dart';
 import 'package:tealth_project/pateint/pateintProfile.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class PateintBar extends StatefulWidget {
+  const PateintBar({Key? key}) : super(key: key);
+
   @override
   _PateintBarState createState() => _PateintBarState();
 }
 
 class _PateintBarState extends State<PateintBar> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  // Future _signOut() async {
-  //   await _auth.signOut();
-  // }
+
   int _selectedIndex = 0;
   List<Widget> _pages = [
-    HomeScreenPateint(), ProfileScreenPateint(), ProfileScreenPateint()
-    // DoctorProfile(), DoctorProfile()
+    HomeScreenPateint(),
+    ProfileScreenPateint(),
+    ProfileScreenPateint()
   ];
 
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -51,12 +45,6 @@ class _PateintBarState extends State<PateintBar> {
   void initState() {
     super.initState();
     _getUser();
-  }
-
-  signOut() async {
-    await _auth.signOut();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   void _onItemTapped(int index) {
@@ -113,10 +101,6 @@ class _PateintBarState extends State<PateintBar> {
                         : Typicons.home_outline,
                     text: 'Home',
                   ),
-                  // GButton(
-                  //   icon: FlutterIcons.search1_ant,
-                  //   text: 'Search',
-                  // ),
                   GButton(
                     iconSize: 28,
                     icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
@@ -134,9 +118,11 @@ class _PateintBarState extends State<PateintBar> {
                     icon: Typicons.arrow_back,
                     text: 'Logout',
                     onPressed: () {
-                      //  Future _signOut() async {
-                      signOut();
-                      //  }
+                      //Future<void> logout(BuildContext context) async {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                      // }
                     },
                   ),
                 ],

@@ -4,15 +4,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tealth_project/HomePageScreen.dart';
+import 'package:tealth_project/pateint/pateintProfile.dart';
+import '../main.dart';
+import '../pateint/pateintProfile.dart';
+import '../pateint/pateintProfile.dart';
+import '../widgets/bottombar.dart';
+import 'homepage.dart';
 
-class getExamination extends StatefulWidget {
-  const getExamination({Key? key}) : super(key: key);
+class getExaminationList extends StatefulWidget {
+  final String pateint;
+
+  const getExaminationList({Key? key, required this.pateint}) : super(key: key);
 
   @override
-  _getExaminationState createState() => _getExaminationState();
+  _getExaminationListState createState() => _getExaminationListState();
 }
 
-class _getExaminationState extends State<getExamination> {
+class _getExaminationListState extends State<getExaminationList> {
   final secondaryColor = const Color(0xff0095FF);
   String nameQuery = '';
   String DateQuery = '';
@@ -61,7 +69,7 @@ class _getExaminationState extends State<getExamination> {
                   height: 500,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: FutureBuilder<List<QueryDocumentSnapshot>?>(
-                      future: getPatientExaminations(user?.uid),
+                      future: getPatientExaminations(widget.pateint),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return const Center(

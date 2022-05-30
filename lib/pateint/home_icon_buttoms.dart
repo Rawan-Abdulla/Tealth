@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tealth_project/examinatiomScreens/getExamination.dart';
+
 import 'package:tealth_project/pateint/SearchLab.dart';
 import 'package:tealth_project/pateint/appointemntList.dart';
 import 'package:tealth_project/pateint/searchDoctor.dart';
 
-import 'ScheduleTab.dart';
 import 'getExamination.dart';
-import 'homepage.dart';
 
 class CatigoryW extends StatelessWidget {
   String image;

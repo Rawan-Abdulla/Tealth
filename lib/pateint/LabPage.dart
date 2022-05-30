@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tealth_project/pateint/booking.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'booking.dart';
 
 class LabPage extends StatefulWidget {
   final String Lab;
@@ -85,16 +82,6 @@ class _LabPageState extends State<LabPage> {
                             fontSize: 24,
                           ),
                         ),
-                        // SizedBox(
-                        //   height: 10,
-                        // ),
-                        // Text(
-                        //   document['location'],
-                        //   style: GoogleFonts.lato(
-                        //       //fontWeight: FontWeight.bold,
-                        //       fontSize: 25,
-                        //       color: Colors.black54),
-                        // ),
                         SizedBox(
                           height: 14,
                         ),
@@ -130,7 +117,6 @@ class _LabPageState extends State<LabPage> {
                         SizedBox(
                           height: 10,
                         ),
-
                         Container(
                           height: MediaQuery.of(context).size.height / 12,
                           margin: EdgeInsets.symmetric(horizontal: 10),
@@ -213,41 +199,6 @@ class _LabPageState extends State<LabPage> {
                         SizedBox(
                           height: 50,
                         ),
-                        // Container(
-                        //   padding: EdgeInsets.symmetric(horizontal: 30),
-                        //   height: 50,
-                        //   width: MediaQuery.of(context).size.width,
-                        //   child: ElevatedButton(
-                        //     style: ElevatedButton.styleFrom(
-                        //       elevation: 2,
-                        //       onPrimary: Colors.blue,
-                        //       shape: RoundedRectangleBorder(
-                        //         borderRadius: BorderRadius.circular(32.0),
-                        //       ),
-                        //     ),
-                        //     onPressed: () {
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => BookingScreen(
-                        //             doctor: document['firstName'],
-                        //           ),
-                        //         ),
-                        //       );
-                        //     },
-                        //     child: Text(
-                        //       'Book an Appointment',
-                        //       style: GoogleFonts.lato(
-                        //         color: Colors.white,
-                        //         fontSize: 16,
-                        //         fontWeight: FontWeight.bold,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 40,
-                        // ),
                       ],
                     ),
                   );

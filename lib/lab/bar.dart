@@ -6,14 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:tealth_project/HomePageScreen.dart';
 import 'package:tealth_project/Lab/LabHome.dart';
 import 'package:tealth_project/Lab/LabPage.dart';
 import 'package:tealth_project/login.dart';
-import 'package:tealth_project/pateint/homepage.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
-import 'package:quick_actions/quick_actions.dart';
 
 class bar extends StatefulWidget {
   @override
@@ -104,10 +102,6 @@ class _barState extends State<bar> {
                         : Typicons.home_outline,
                     text: 'Home',
                   ),
-                  // GButton(
-                  //   icon: FlutterIcons.search1_ant,
-                  //   text: 'Search',
-                  // ),
                   GButton(
                     iconSize: 28,
                     icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
@@ -125,9 +119,11 @@ class _barState extends State<bar> {
                     icon: Typicons.arrow_back,
                     text: 'Logout',
                     onPressed: () {
-                      //  Future _signOut() async {
-                      signOut();
-                      //  }
+                      //Future<void> logout(BuildContext context) async {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                      // }
                     },
                   ),
                 ],

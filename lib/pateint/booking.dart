@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
- import 'package:tealth_project/consts/constants.dart';
 
 import '../model/user_model.dart';
 import 'appointemntList.dart';
@@ -39,31 +38,21 @@ class _BookingScreenState extends State<BookingScreen> {
   late String date_Time;
 
   User? user = FirebaseAuth.instance.currentUser;
-UserModel loggedInUser = UserModel();
+  UserModel loggedInUser = UserModel();
   //late User user;
   @override
   void initState() {
     super.initState();
     FirebaseFirestore.instance
-       .collection("users")
-       .doc(user!.uid).
- get().then((value) {
-   this.loggedInUser=UserModel.fromMap(value.data());
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
     });
     selectTime(context);
     _doctorController.text = widget.doctor;
-   // FirebaseFirestore.instance
-//         .collection("users")
-//         .doc(user!.uid)
-//         .get()
-//         .then((value) {
-//       this.loggedInUser = UserModel.fromMap(value.data());
-//       setState(() {});
   }
-
-  // Future<void> _getUser() async {
-  //   user = _auth.currentUser!;
-  // }
 
   Future<void> selectDate(BuildContext context) async {
     showDatePicker(
@@ -72,12 +61,12 @@ UserModel loggedInUser = UserModel();
       firstDate: DateTime(2021),
       lastDate: DateTime(2025),
     ).then(
-          (date) {
+      (date) {
         setState(
-              () {
+          () {
             selectedDate = date!;
             String formattedDate =
-            DateFormat('dd-MM-yyyy').format(selectedDate);
+                DateFormat('dd-MM-yyyy').format(selectedDate);
             _dateController.text = formattedDate;
             dateUTC = DateFormat('yyyy-MM-dd').format(selectedDate);
           },
@@ -190,14 +179,12 @@ UserModel loggedInUser = UserModel();
                         style: GoogleFonts.lato(
                             fontSize: 30, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
-                          contentPadding:
-                          EdgeInsets.only(left: 100),
+                          contentPadding: EdgeInsets.only(left: 100),
                           border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(25.0),
+                            borderRadius: BorderRadius.circular(25.0),
                             borderSide: BorderSide.none,
                           ),
-                         // filled: true,
+                          // filled: true,
                           //fillColor: Colors.grey[350],
                           hintText: 'Doctor Name*',
                           hintStyle: GoogleFonts.lato(
@@ -207,7 +194,6 @@ UserModel loggedInUser = UserModel();
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 80,
                       ),
@@ -220,10 +206,10 @@ UserModel loggedInUser = UserModel();
                             fontSize: 18, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           contentPadding:
-                          EdgeInsets.only(left: 20, top: 10, bottom: 10),
+                              EdgeInsets.only(left: 20, top: 10, bottom: 10),
                           border: OutlineInputBorder(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(90.0)),
+                                BorderRadius.all(Radius.circular(90.0)),
                             borderSide: BorderSide.none,
                           ),
                           filled: true,
@@ -241,8 +227,6 @@ UserModel loggedInUser = UserModel();
                         },
                         textInputAction: TextInputAction.next,
                       ),
-
-
                       SizedBox(
                         height: 20,
                       ),
@@ -263,7 +247,7 @@ UserModel loggedInUser = UserModel();
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(90.0)),
+                                      BorderRadius.all(Radius.circular(90.0)),
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
@@ -334,7 +318,7 @@ UserModel loggedInUser = UserModel();
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(90.0)),
+                                      BorderRadius.all(Radius.circular(90.0)),
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
@@ -437,7 +421,7 @@ UserModel loggedInUser = UserModel();
         .collection('pending')
         .doc()
         .set({
-      'name':loggedInUser.firstName,
+      'name': loggedInUser.firstName,
       'phone': loggedInUser.phoneNumber,
       'description': _descriptionController.text,
       'doctor': _doctorController.text,
@@ -450,10 +434,11 @@ UserModel loggedInUser = UserModel();
         .collection('all')
         .doc()
         .set({
-      'name':loggedInUser.firstName,
+      'name': loggedInUser.firstName,
       'phone': loggedInUser.phoneNumber,
-      'description': _descriptionController.text == '' ? "No Description specified" :
-      _descriptionController.text,
+      'description': _descriptionController.text == ''
+          ? "No Description specified"
+          : _descriptionController.text,
       'doctor': _doctorController.text,
       'date': DateTime.parse(dateUTC + ' ' + date_Time + ':00'),
     }, SetOptions(merge: true));
