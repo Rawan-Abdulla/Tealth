@@ -792,7 +792,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.role = roleEditingController.text;
     userModel.id = idEditingController.text;
     userModel.gender = genderEditingController.text;
-    //userModel.age = ageEditingController.text;
+    userModel.age = ageEditingController.text;
     userModel.phoneNumber = phoneNumberEditingController.text;
     userModel.StartWorkTime = selectedStartTime;
     userModel.EndWorkTime = selectedEndTime;
@@ -824,8 +824,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap())
         .then((value) => setState(() {
               if (roleEditingController.text == 'Pateint') {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => PateintBar()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const PateintBar()));
               } else if (roleEditingController.text == 'Doctor') {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => barDr()));

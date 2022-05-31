@@ -25,7 +25,6 @@ class _PateintBarState extends State<PateintBar> {
   List<Widget> _pages = [
     HomeScreenPateint(),
     ProfileScreenPateint(),
-    ProfileScreenPateint()
   ];
 
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -102,13 +101,8 @@ class _PateintBarState extends State<PateintBar> {
                     text: 'Home',
                   ),
                   GButton(
-                    iconSize: 28,
-                    icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
-                    text: 'Notification',
-                  ),
-                  GButton(
                     iconSize: 29,
-                    icon: _selectedIndex == 2
+                    icon: _selectedIndex == 1
                         ? Typicons.user
                         : Typicons.user_outline,
                     text: 'Profile',

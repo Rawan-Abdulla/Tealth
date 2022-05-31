@@ -205,10 +205,7 @@ class _EditProfileState extends State<EditProfile> {
     // }
   }
 
-  // logout() async {
-  //   await googleSignIn.signOut();
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-  // }
+
 
   @override
   Widget build(BuildContext context) {

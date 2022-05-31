@@ -15,7 +15,9 @@ class AiModel {
   final String gender;
   final String height;
   final String weight;
+  // ignore: non_constant_identifier_names
   final String ap_hi;
+  // ignore: non_constant_identifier_names
   final String ap_lo;
   final String cholesterol;
   final String gluc;

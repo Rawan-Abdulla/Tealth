@@ -1,192 +1,13 @@
-// // ignore_for_file: use_key_in_widget_constructors
+import 'dart:convert';
 
-// import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-
-// Future<AiForm> createForm(String title) async {
-//   final response = await http.post(
-//     Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-//     headers: <String, String>{
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: jsonEncode(<String, String>{
-//       'title': title,
-//     }),
-//   );
-
-//   if (response.statusCode == 201) {
-//     // If the server did return a 201 CREATED response,
-//     // then parse the JSON.
-//     return AiForm.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 201 CREATED response,
-//     // then throw an exception.
-//     throw Exception('Failed to create Form.');
-//   }
-// }
-
-// class AiForm {
-//   final String age;
-//   final String gender;
-//   final String height;
-//   final String weight;
-//   final String ap_hi;
-//   final String ap_lo;
-//   final String holesterol;
-//   final String gluc;
-//   final String smoke;
-//   final String alco;
-//   final String active;
-
-//   const AiForm(this.age, this.gender, this.height, this.weight, this.ap_hi, this.ap_lo, this.holesterol, this.gluc, this.smoke, this.alco, this.active, {required this.id, required this.title});
-
-//   factory AiForm.fromJson(Map<String, dynamic> json) {
-//     return AiForm(
-//       age: json['age'],
-//       gender: json['gender'],
-//           height: json['height'],
-//       weight: json['weight'],
-//           ap_hi: json['ap_hi'],
-//       ap_lo: json['ap_lo'],
-//           holesterol: json['holesterol'],
-//       gluc: json['gluc'],
-//           smoke: json['smoke'],
-//       alco: json['alco'],
-//           active: json['active'], id: null,
-
-//     );
-//   }
-// }
-
-// class Ai extends StatefulWidget {
-//   const Ai({Key? key}) : super(key: key);
-
-//   @override
-//   _AiState createState() {
-//     return _AiState();
-//   }
-// }
-
-// class _AiState extends State<Ai> {
-//   final TextEditingController _ageController = TextEditingController();
-//   final TextEditingController _genderController = TextEditingController();
-//   final TextEditingController _heightController = TextEditingController();
-//   final TextEditingController _weightController = TextEditingController();
-//   final TextEditingController _ap_hiController = TextEditingController();
-//   final TextEditingController _ap_loController = TextEditingController();
-//   final TextEditingController _cholesterolController = TextEditingController();
-//   final TextEditingController _glucController = TextEditingController();
-//   final TextEditingController _smokeController = TextEditingController();
-//   final TextEditingController _alcoController = TextEditingController();
-//   final TextEditingController _activeController = TextEditingController();
-//   Future<AiForm>? _futureAlbum;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Create Data Example',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Create Data Example'),
-//         ),
-//         body: Container(
-//           alignment: Alignment.center,
-//           padding: const EdgeInsets.all(8.0),
-//           child: (_futureAlbum == null) ? buildColumn() : buildFutureBuilder(),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Column buildColumn() {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//         TextField(
-//           controller: _ageController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _genderController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _heightController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _weightController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _ap_hiController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _ap_loController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _cholesterolController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _glucController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _smokeController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _alcoController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         TextField(
-//           controller: _activeController,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         ElevatedButton(
-//           onPressed: () {
-//             setState(() {
-//               _futureAlbum = createForm(_ageController.text);
-//             });
-//           },
-//           child: const Text('Create Data'),
-//         ),
-//       ],
-//     );
-//   }
-
-//   FutureBuilder<AiForm> buildFutureBuilder() {
-//     return FutureBuilder<AiForm>(
-//       future: _futureAlbum,
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           return Text(snapshot.data!.age);
-//         } else if (snapshot.hasError) {
-//           return Text('${snapshot.error}');
-//         }
-
-//         return const CircularProgressIndicator();
-//       },
-//     );
-//   }
-// }
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:tealth_project/main.dart';
 import 'package:tealth_project/model/FormAi_model.dart';
+import 'package:tealth_project/model/user_model.dart';
 import 'package:tealth_project/pateint/PatinetBar.dart';
-import 'package:tealth_project/pateint/homepage.dart';
 
 class AiForm extends StatefulWidget {
   const AiForm({Key? key, required this.title}) : super(key: key);
@@ -206,7 +27,7 @@ class AiForm extends StatefulWidget {
   _AiFormState createState() => _AiFormState();
 }
 
-Future<AiModel?> createAi(
+Future<dynamic> createAi(
     String age,
     String gender,
     String height,
@@ -218,44 +39,63 @@ Future<AiModel?> createAi(
     String smoke,
     String alco,
     String active) async {
-  final Uri apiUrl = Uri.parse("");
+  final list = {
+    'age': age,
+    'gender': gender,
+    'height': height,
+    'weight': weight,
+    'ap_hi': ap_hi,
+    'ap_lo': ap_lo,
+    'cholesterol': cholesterol,
+    'gluc': gluc,
+    'smoke': smoke,
+    'alco': alco,
+    'active': active
+  };
 
-  final response = await http.post(apiUrl, body: {
-    "age": age,
-    "gender": gender,
-    "height": height,
-    "weight": weight,
-    "ap_hi": ap_hi,
-    "ap_lo": ap_lo,
-    "cholesterol": cholesterol,
-    "gluc": gluc,
-    "smoke": smoke,
-    "alco": alco,
-    "active": active,
-  });
-
-  if (response.statusCode == 201) {
-    final String responseString = response.body;
-
-    return userModelFromJson(responseString);
+  Uri url = Uri.http('172.20.10.2:8844', '', list);
+  http.Response res = await http.get(url);
+  print(res.body);
+  if (res.statusCode == 201) {
+    //  final String responseString = res.body;
+    dynamic result = jsonDecode(res.body);
+    return {"predict": result["predict"], "Error": result["Error"]};
   } else {
     return null;
   }
 }
 
 class _AiFormState extends State<AiForm> {
+  Map<String, dynamic> output = {};
+  User? user = FirebaseAuth.instance.currentUser;
+  static final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  set loggedInUser(UserModel loggedInUser) {}
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   late AiModel form = AiModel(
-      age: "",
-      gender: "",
-      height: "",
-      weight: "",
-      ap_hi: "",
-      ap_lo: "",
-      cholesterol: "",
-      gluc: "",
-      smoke: "",
-      alco: "",
-      active: "");
+      age: "36575",
+      gender: "2",
+      height: "198",
+      weight: "66.5",
+      ap_hi: "110",
+      ap_lo: "60",
+      cholesterol: "2",
+      gluc: "1",
+      smoke: "0",
+      alco: "0",
+      active: "1");
 
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
@@ -286,8 +126,8 @@ class _AiFormState extends State<AiForm> {
           },
         ),
       ),
-      body: Container(
-        // padding: EdgeInsets.all(32),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.all(15),
@@ -303,7 +143,7 @@ class _AiFormState extends State<AiForm> {
                     borderSide: BorderSide(color: Colors.blue, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  // hintText: "hintText",
+                  hintText: "Pleas Enter your age in days ",
                   hintStyle: const TextStyle(color: Colors.grey)),
             ),
             SizedBox(
@@ -320,6 +160,7 @@ class _AiFormState extends State<AiForm> {
                     borderSide: BorderSide(color: Colors.blue, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  hintText: "Pleas Enter 1 if you Female, 2 if you Male ",
                   hintStyle: const TextStyle(color: Colors.grey)),
             ),
             SizedBox(
@@ -336,6 +177,24 @@ class _AiFormState extends State<AiForm> {
                     borderSide: BorderSide(color: Colors.blue, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  hintText: "Pleas Enter your height in cm ",
+                  hintStyle: const TextStyle(color: Colors.grey)),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: _weightController,
+              decoration: InputDecoration(
+                  // fillColor: Colors.blue,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.blue, width: 5)),
+                  disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  hintText: "Pleas Enter your whight in kg ",
                   hintStyle: const TextStyle(color: Colors.grey)),
             ),
             SizedBox(
@@ -352,6 +211,7 @@ class _AiFormState extends State<AiForm> {
                     borderSide: BorderSide(color: Colors.blue, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  hintText: "Pleas Enter your whight in kg ",
                   hintStyle: const TextStyle(color: Colors.grey)),
             ),
             SizedBox(
@@ -416,6 +276,7 @@ class _AiFormState extends State<AiForm> {
                     borderSide: BorderSide(color: Colors.blue, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  hintText: "Pleas Enter 0 if you are somking, 1 if not ",
                   hintStyle: const TextStyle(color: Colors.grey)),
             ),
             SizedBox(
@@ -453,10 +314,6 @@ class _AiFormState extends State<AiForm> {
             SizedBox(
               height: 32,
             ),
-            form == null
-                ? Container()
-                : Text(
-                    "The user ${form.age}, ${form.gender},${form.height},${form.weight},${form.ap_hi},${form.ap_lo},${form.gluc},${form.smoke} is created successfully at time ${form.active}"),
           ],
         ),
       ),
@@ -474,11 +331,18 @@ class _AiFormState extends State<AiForm> {
           final String alco = _alcoController.text;
           final String active = _activeController.text;
 
-          final AiModel? AiForm = await createAi(age, gender, height, weight,
-              ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active);
+          // ignore: non_constant_identifier_names
 
-          setState(() {
-            form = AiForm!;
+          setState(() async {
+            output = await createAi(age, gender, height, weight, ap_hi, ap_lo,
+                cholesterol, gluc, smoke, alco, active);
+            if (output == {"predict": "0", "Error": 0}) {
+              _showMyDialogNo;
+            } else if (output == {"predict": "1", "Error": 0}) {
+              _showMyDialogYes();
+            } else {
+              _showMyDialogError();
+            }
           });
         },
         tooltip: 'Increment',
@@ -486,6 +350,111 @@ class _AiFormState extends State<AiForm> {
         icon: const Icon(Icons.wb_incandescent_outlined),
         backgroundColor: Colors.blue,
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  static Future<List<QueryDocumentSnapshot>?> getPatientExaminations(
+      patientID) async {
+    return (await usersCollection
+            .doc(patientID)
+            .collection('examinations')
+            .get())
+        .docs;
+  }
+
+  // Future<void> getdate() async {
+  //   Uri url = Uri.https(
+  //     ' http://192.168.0.110:8844//',);
+  //   http.Response res = await http.get(url);
+  //   print(res.body);
+  // }
+  Future<void> _showMyDialogYes() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Our advice'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text(
+                    'There is a problem with entering data.. Make sure you follow the instructions correctly.'),
+                //Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go to home Page'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PateintBar()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showMyDialogNo() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Our advice'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Your health is fine.'),
+                Text('Keep going!'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go to Home page to Find correct doctor!'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PateintBar()),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showMyDialogError() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Opps!!!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('You have some problems, try again.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Again!'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

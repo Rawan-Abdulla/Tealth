@@ -21,7 +21,7 @@ class bar extends StatefulWidget {
 class _barState extends State<bar> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
-  List<Widget> _pages = [HomeScreenLab(), LabPage(), LabPage()];
+  List<Widget> _pages = [HomeScreenLab(), LabPage()];
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   late User user;
@@ -103,13 +103,8 @@ class _barState extends State<bar> {
                     text: 'Home',
                   ),
                   GButton(
-                    iconSize: 28,
-                    icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
-                    text: 'Notification',
-                  ),
-                  GButton(
                     iconSize: 29,
-                    icon: _selectedIndex == 2
+                    icon: _selectedIndex == 1
                         ? Typicons.user
                         : Typicons.user_outline,
                     text: 'Profile',

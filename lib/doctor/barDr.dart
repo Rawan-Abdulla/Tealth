@@ -13,6 +13,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tealth_project/HomePageScreen.dart';
 
 import 'package:tealth_project/doctor/DrHomePage.dart';
+import 'package:tealth_project/doctor/doctorProfile.dart';
 import 'package:typicons_flutter/typicons_flutter.dart';
 
 class barDr extends StatefulWidget {
@@ -24,10 +25,7 @@ class _barDrState extends State<barDr> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int _selectedIndex = 0;
-  List<Widget> _pages = [
-    HomeScreenDr(), HomeScreenDr(), HomeScreenDr()
-    // DoctorProfile(), DoctorProfile()
-  ];
+  List<Widget> _pages = [HomeScreenDr(), DoctorProfile()];
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   late User user;
@@ -109,13 +107,8 @@ class _barDrState extends State<barDr> {
                     text: 'Home',
                   ),
                   GButton(
-                    iconSize: 28,
-                    icon: _selectedIndex == 1 ? Typicons.bell : Typicons.bell,
-                    text: 'Notification',
-                  ),
-                  GButton(
                     iconSize: 29,
-                    icon: _selectedIndex == 2
+                    icon: _selectedIndex == 1
                         ? Typicons.user
                         : Typicons.user_outline,
                     text: 'Profile',
